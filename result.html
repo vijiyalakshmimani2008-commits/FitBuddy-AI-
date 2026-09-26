@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>FitBuddy - Your Plan</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/style.css"
+    >
+
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="wide-card">
+
+        <div class="top-navigation">
+
+            <a href="/">
+                ← Create New Plan
+            </a>
+
+            <a href="/view-all-users">
+                👥 Users
+            </a>
+
+        </div>
+
+
+        {% if message %}
+
+        <div class="success-message">
+
+            ✅ {{ message }}
+
+        </div>
+
+        {% endif %}
+
+
+        {% if error %}
+
+        <div class="error-message">
+
+            ❌ {{ error }}
+
+        </div>
+
+        {% endif %}
+
+
+        {% if user %}
+
+        <div class="hero">
+
+            <div class="hero-icon">
+                🏋️
+            </div>
+
+            <div>
+
+                <h1>
+                    {{ user.username }}'s Fitness Plan
+                </h1>
+
+                <p>
+                    Your personalized FitBuddy plan
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- USER INFORMATION -->
+
+        <section class="section">
+
+            <h2>
+                👤 Your Information
+            </h2>
+
+            <div class="info-grid">
+
+                <div class="info-box">
+
+                    <span>Name</span>
+
+                    <strong>
+                        {{ user.username }}
+                    </strong>
+
+                </div>
+
+                <div class="info-box">
+
+                    <span>User ID</span>
+
+                    <strong>
+                        {{ user.user_id }}
+                    </strong>
+
+                </div>
+
+                <div class="info-box">
+
+                    <span>Age</span>
+
+                    <strong>
+                        {{ user.age }}
+                    </strong>
+
+                </div>
+
+                <div class="info-box">
+
+                    <span>Weight</span>
+
+                    <strong>
+                        {{ user.weight }} kg
+                    </strong>
+
+                </div>
+
+                <div class="info-box">
+
+                    <span>Goal</span>
+
+                    <strong>
+                        {{ user.goal }}
+                    </strong>
+
+                </div>
+
+                <div class="info-box">
+
+                    <span>Intensity</span>
+
+                    <strong>
+                        {{ user.intensity }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- WORKOUT -->
+
+        <section class="section">
+
+            <h2>
+                🏋️ 7-Day Workout Plan
+            </h2>
+
+            <div class="plan-box">
+
+                <pre>{{ workout_plan }}</pre>
+
+            </div>
+
+        </section>
+
+
+        <!-- NUTRITION -->
+
+        <section class="section">
+
+            <h2>
+                🥗 Nutrition / Recovery Tip
+            </h2>
+
+            <div class="nutrition-box">
+
+                {{ nutrition_tip }}
+
+            </div>
+
+        </section>
+
+
+        <!-- FEEDBACK -->
+
+        <section class="section">
+
+            <h2>
+                🔄 Update Your Plan
+            </h2>
+
+            <p>
+                Tell FitBuddy what you would like to change.
+            </p>
+
+            <form
+                action="/submit-feedback"
+                method="POST"
+            >
+
+                <input
+                    type="hidden"
+                    name="user_id"
+                    value="{{ user.user_id }}"
+                >
+
+                <textarea
+                    name="feedback"
+                    placeholder="Example: Add more cardio, include more rest days, make the workouts easier..."
+                    required
+                ></textarea>
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
+                    🤖 Update Plan With AI
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- SAFETY -->
+
+        <div class="notice">
+
+            <strong>
+                ℹ️ Important
+            </strong>
+
+            <p>
+                FitBuddy provides general fitness information
+                and is not a substitute for professional
+                medical advice. Adjust activities to your
+                abilities and seek professional advice when
+                appropriate.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

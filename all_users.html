@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>FitBuddy - Admin Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="/static/style.css"
+    >
+
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="wide-card">
+
+        <div class="top-navigation">
+
+            <a href="/">
+                ← Home
+            </a>
+
+            <a href="/docs">
+                📘 API Docs
+            </a>
+
+        </div>
+
+
+        <div class="hero">
+
+            <div class="hero-icon">
+                👥
+            </div>
+
+            <div>
+
+                <h1>
+                    FitBuddy Users
+                </h1>
+
+                <p>
+                    Admin / Coach Dashboard
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% if users %}
+
+        {% for user in users %}
+
+        {% set plan = plans.get(user.user_id) %}
+
+
+        <div class="user-card">
+
+            <div class="user-card-header">
+
+                <div>
+
+                    <h2>
+                        {{ user.username }}
+                    </h2>
+
+                    <p>
+                        User ID:
+                        <strong>
+                            {{ user.user_id }}
+                        </strong>
+                    </p>
+
+                </div>
+
+                <span class="badge">
+                    {{ user.goal }}
+                </span>
+
+            </div>
+
+
+            <div class="info-grid">
+
+                <div class="info-box">
+
+                    <span>Age</span>
+
+                    <strong>
+                        {{ user.age }}
+                    </strong>
+
+                </div>
+
+                <div class="info-box">
+
+                    <span>Weight</span>
+
+                    <strong>
+                        {{ user.weight }} kg
+                    </strong>
+
+                </div>
+
+                <div class="info-box">
+
+                    <span>Intensity</span>
+
+                    <strong>
+                        {{ user.intensity }}
+                    </strong>
+
+                </div>
+
+                <div class="info-box">
+
+                    <span>Created</span>
+
+                    <strong>
+                        {{ user.created_at }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            {% if plan %}
+
+            <div class="plan-columns">
+
+                <div>
+
+                    <h3>
+                        Original Plan
+                    </h3>
+
+                    <pre>{{ plan.original_plan }}</pre>
+
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        Updated Plan
+                    </h3>
+
+                    {% if plan.updated_plan %}
+
+                    <pre>{{ plan.updated_plan }}</pre>
+
+                    {% else %}
+
+                    <div class="empty-plan">
+
+                        No updated plan yet.
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            {% if plan.feedback %}
+
+            <div class="feedback-box">
+
+                <strong>
+                    User Feedback:
+                </strong>
+
+                <p>
+                    {{ plan.feedback }}
+                </p>
+
+            </div>
+
+            {% endif %}
+
+
+            {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+        {% else %}
+
+        <div class="empty-state">
+
+            <h2>
+                No users yet
+            </h2>
+
+            <p>
+                Generate your first FitBuddy plan
+                from the home page.
+            </p>
+
+            <a
+                href="/"
+                class="primary-button"
+            >
+                Create First Plan
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
